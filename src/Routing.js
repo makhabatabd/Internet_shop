@@ -1,5 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
 import HomePage from "./components/HomePage/HomePage";
 import ProductsList from "./components/ProductsList/ProductsList";
 import AdminPage from "./pages/AdminPage";
@@ -27,6 +30,7 @@ const Routing = () => {
   ];
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         {PUBLIC_ROUTES.map((item) => (
           <Route key={item.id} path={item.link} element={item.element} />
@@ -36,6 +40,7 @@ const Routing = () => {
         ))}
         <Route path="*" element={<Error404 />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };
