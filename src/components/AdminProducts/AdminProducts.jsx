@@ -3,28 +3,32 @@ import { List, message, Avatar } from "antd";
 import VirtualList from "rc-virtual-list";
 import { useContext } from "react";
 import { productsContext } from "../../contexts/productsContext";
+import { Link } from "react-router-dom";
 
 const AdminProducts = () => {
-  const { products, getProducts } = useContext(productsContext);
+  const { products, getProducts, deleteProduct } = useContext(productsContext);
   useEffect(() => {
     getProducts();
   }, []);
   console.log(products);
   return (
     <List>
-      <VirtualList
-        // data={data}
-        itemHeight={47}
-        itemKey="email"
-      >
+      <VirtualList data={products} itemHeight={47} itemKey="email">
         {(item) => (
-          <List.Item key={item.email}>
+          <List.Item key={item.id}>
             <List.Item.Meta
-              avatar={<Avatar src={item.picture.large} />}
-              title={<a href="https://ant.design">{item.name.last}</a>}
-              description={item.email}
+              avatar={<Avatar src={item.image1} />}
+              title={
+                <a href="#">
+                  {item.brand}, {item.model}
+                </a>
+              }
             />
-            <div>Content</div>
+            <a onClick={() => deleteProduct(item.id)}>Delete</a>
+            <Link to={`/edit/${item.id}`} style={{ margin: "auto 20px" }}>
+              Edit
+            </Link>
+            <Link to={`/products/${item.id}`}>Details</Link>
           </List.Item>
         )}
       </VirtualList>
